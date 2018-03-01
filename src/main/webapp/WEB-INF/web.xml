@@ -1,0 +1,53 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+	http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+	
+	
+  <display-name>Archetype Created Web Application</display-name>
+  
+  <!-- Configuring front controller  -->
+  <servlet>
+  	<!-- naming this as dispatcher will look for WEB-INF/dispatcher-servlet.xml file -->
+  	<servlet-name>dispatcher</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<!-- Loads XmlWebApplicationContext by default -->
+  	<!-- To load AnnotationConfigWebApplicationContext we need following -->
+  	<!-- 
+  	<init-param>
+  		<param-name>contextClass</param-name>
+  		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>com.inovision.apitest.springconfig.SpringConfiguration</param-value>
+  	</init-param>
+  	--> 
+  	<load-on-startup>1</load-on-startup> 	
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>dispatcher</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+  	<servlet-name>dispatcher</servlet-name>
+  	<url-pattern>/rest</url-pattern>
+  </servlet-mapping>
+  
+  <!-- For Tomcat you have to configure following under GlobalNamingResources 
+  
+  		<Resource auth="Container" description="H2 Datasource (Test)" driverClassName="org.h2.Driver" name="test-h2ds" password="" scope="shareable" type="javax.sql.DataSource" url="jdbc:h2:tcp://localhost/~/test" username="sa"/>
+   And following under the context 
+      	<ResourceLink global="test-h2ds" name="jdbc/H2DS" type="javax.sql.DataSource"/>
+   And Copy the driver to TOMCAT/lib folder 
+   // -->
+   
+  <resource-ref id="H2DB">
+  	<res-ref-name>jdbc/H2DS</res-ref-name>
+  	<res-type>javax.sql.DataSource</res-type>
+  	<res-auth>Container</res-auth>
+  	<res-sharing-scope>Shareable</res-sharing-scope>
+  </resource-ref>
+</web-app>

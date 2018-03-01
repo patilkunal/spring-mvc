@@ -1,0 +1,19 @@
+<jboss-web>
+	<context-root>spring-mvc</context-root>
+  	<resource-ref id="H2DB">
+  		<res-ref-name>jdbc/H2DS</res-ref-name>
+  		<jndi-name>java:jboss/test-h2ds</jndi-name>
+  		<!-- This will be configured in jboss configuration file as below -->
+  		<!-- 
+                <datasource jta="true" jndi-name="java:jboss/test-h2ds" pool-name="H2DS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:h2:tcp://localhost/~/test</connection-url>
+  					<driver>h2</driver>
+                    <security>
+                        <user-name>sa</user-name>
+                        <password></password>
+                    </security>
+                 </datasource>
+ 		-->                 
+  	</resource-ref>
+	
+</jboss-web>
