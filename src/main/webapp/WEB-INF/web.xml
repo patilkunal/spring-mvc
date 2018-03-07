@@ -11,6 +11,12 @@
   	<!-- naming this as dispatcher will look for WEB-INF/dispatcher-servlet.xml file -->
   	<servlet-name>dispatcher</servlet-name>
   	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<!-- Required so we can show our custom error page -->
+  	<init-param>
+  		<param-name>throwExceptionIfNoHandlerFound</param-name>
+  		<param-value>true</param-value>
+  	</init-param>
+  	
   	<!-- Loads XmlWebApplicationContext by default -->
   	<!-- To load AnnotationConfigWebApplicationContext we need following -->
   	<!-- 

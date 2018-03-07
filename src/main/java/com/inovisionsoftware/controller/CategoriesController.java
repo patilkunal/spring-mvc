@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inovisionsoftware.dao.CategoryDAO;
+import com.inovisionsoftware.exception.EntityNotFoundException;
 import com.inovisionsoftware.model.Category;
 
 @Controller
@@ -38,7 +39,11 @@ public class CategoriesController {
 
 	//test using curl -H "Accept: application/json" http://localhost:8080/spring-mvc/category/1
 	@RequestMapping(method=RequestMethod.GET, value="/{id}")
-	public @ResponseBody Category getCategory(@PathVariable("id") int id) {
-		return categoryDAO.getCategory(id);
+	public @ResponseBody Category getCategory(@PathVariable("id") int id) throws EntityNotFoundException {
+		Category cat = categoryDAO.getCategory(id);
+		if(cat == null) { 
+			throw new EntityNotFoundException("Requested category is not found");
+		}
+		return cat;
 	}
 }
