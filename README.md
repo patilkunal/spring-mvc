@@ -20,6 +20,16 @@ Context Section (or context xml file) would look like this
 ## Running the application
 * Start H2 database by running h2w.bat from the bin folder 
 * Configure jdbc url as per configuration (one shown is out of box)
+
+### Create Database table
+Create User table using following SQL
+```sql
+create table category (
+id int IDENTITY PRIMARY KEY,
+name varchar(100)
+);
+```
+
 * Deploy the war (or click run on server from Eclipse IDE)
 * Test the application using curl command
 ```
