@@ -22,12 +22,50 @@ Context Section (or context xml file) would look like this
 * Configure jdbc url as per configuration (one shown is out of box)
 
 ### Create Database table
-Create User table using following SQL
+Create category table using following SQL
 ```sql
 create table category (
 id int IDENTITY PRIMARY KEY,
 name varchar(100)
 );
+```
+
+### Create User and Address tables
+```sql
+
+create table user_detail (
+id identity primary key,
+first_name varchar(50),
+last_name varchar(50),
+role varchar(50),
+enabled Boolean,
+password varchar(100),
+email varchar(255),
+contact_number varchar(20)
+);
+
+create table address (
+id identity primary key,
+user_id int,
+address_line1 varchar(255),
+address_line2 varchar(255),
+city varchar(50),
+state varchar(50),
+postal_code varchar(10),
+billing Boolean,
+shipping Boolean,
+constraint fk_address_user_id foreign key (user_id) references user_detail(id)
+);
+
+create table cart (
+id identity primary key,
+user_id int,
+grand_total decimal(10,2),
+cart_lines int,
+constraint fk_cart_user_id foreign key (user_id) references user_detail(id)
+);
+
+
 ```
 
 * Deploy the war (or click run on server from Eclipse IDE)
