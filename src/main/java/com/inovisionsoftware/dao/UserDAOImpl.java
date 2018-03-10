@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -38,10 +39,21 @@ public class UserDAOImpl implements UserDAO {
 		
 		return (User) (list != null && !list.isEmpty() ? list.get(0) : null);
 	}
+	
 	@Override
 	public User addUser(User user) {
-		sessionFactory.getCurrentSession().persist(user);
-		return user;
+		if("USER".equals(user.getRole())) {
+			//This is important foor bi-directional relationship 
+			//and user who owns the relationship to work
+			//cart is automatically created and saved
+			Cart cart = new Cart();
+			user.setCart(cart);
+			cart.setUser(user);
+		}
+		Session session = sessionFactory.getCurrentSession();
+		session.persist(user);
+		int userid = user.getId();
+		return session.get(User.class, userid);
 	}
 
 	@Override
@@ -58,9 +70,10 @@ public class UserDAOImpl implements UserDAO {
 	public Cart getCart(int id) {
 		return sessionFactory.getCurrentSession().get(Cart.class, id);
 	}
+	
 	@Override
-	public Cart addCart(Cart cart) {
-		sessionFactory.getCurrentSession().persist(cart);
+	public Cart updateCart(Cart cart) {
+		sessionFactory.getCurrentSession().update(cart);
 		return cart;
 	}
 

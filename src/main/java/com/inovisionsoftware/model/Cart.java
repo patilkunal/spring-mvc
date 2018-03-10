@@ -1,25 +1,28 @@
 package com.inovisionsoftware.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name="cart")
 public class Cart {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	//@Column(name="user_id")
-	//private int userId;
-	
 	@OneToOne
-	@JoinColumn(name="user_id") //column in this table which has foreign key relationship to User(user_detail), id column
+	//@JoinColumn(name="user_id") //column in this table which has foreign key relationship to User(user_detail), id column
+	@JsonIgnore // <-- !!! THIS IS VERY IMPORTANT !!! or else Json serialization goes in infinite loop
 	private User user;
 		
 	@Column(name="grand_total")
@@ -33,14 +36,7 @@ public class Cart {
 	public void setId(int id) {
 		this.id = id;
 	}
-	/*
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	*/
+
 	public User getUser() {
 		return user;
 	}

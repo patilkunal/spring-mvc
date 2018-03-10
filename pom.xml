@@ -13,6 +13,8 @@
 		<javax.servlet-version>3.0.1</javax.servlet-version>
 		<jackson-version>2.9.4</jackson-version>
 		<apache-commons-version>3.6</apache-commons-version>
+		<log4j-version>2.10.0</log4j-version>
+		<guava-version>24.0-jre</guava-version>
 	</properties>
 
 	<dependencies>
@@ -85,6 +87,18 @@
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
 		    <version>${apache-commons-version}</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>${log4j-version}</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>${guava-version}</version>
 		</dependency>
 
 	</dependencies>

@@ -60,9 +60,15 @@ public class UserController {
 		return cart;				
 	}
 	
-	@RequestMapping(value="/cart", method=RequestMethod.POST)
-	public @ResponseBody Cart addCart(@RequestBody Cart cart) {
-		return userDAO.addCart(cart);
+	/*
+	 * $ curl -X PUT -H "Content-type: application/json" -d '{"id": 12, "grandTotal": 500.55, "cartLines": 10}' 'http://localhost:8080/spring-mvc/user/cart/12'
+	 */
+	@RequestMapping(value="/cart/{id}", method=RequestMethod.PUT)
+	public @ResponseBody Cart addCart(@PathVariable("id") int id, @RequestBody Cart cart) throws EntityNotFoundException {
+		Cart existing = userDAO.getCart(id);
+		if(existing == null) throw new EntityNotFoundException("Cart not found to update");
+		cart.setId(id);
+		return userDAO.updateCart(cart);
 	}
 	
 }

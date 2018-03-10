@@ -12,5 +12,5 @@ public interface UserDAO {
 	public Address getAddress(int id);
 	public Address addAddress(Address addr);
 	public Cart getCart(int id);
-	public Cart addCart(Cart cart);
+	public Cart updateCart(Cart cart);
 }

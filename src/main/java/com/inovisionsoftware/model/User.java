@@ -37,7 +37,9 @@ public class User {
 	//CascadeType.ALL will cascade all the operations: create, update, delete to child records
 	//@code{ cart.setUser(user) and user.setCart(cart) }
 	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
+	//@LazyToOne(LazyToOneOption.)
 	private Cart cart;
+	
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
