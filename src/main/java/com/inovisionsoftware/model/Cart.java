@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,7 +22,7 @@ public class Cart {
 	private int id;
 	
 	@OneToOne
-	//@JoinColumn(name="user_id") //column in this table which has foreign key relationship to User(user_detail), id column
+	@JoinColumn(name="user_id") //column in this table which has foreign key relationship to User(user_detail), id column
 	@JsonIgnore // <-- !!! THIS IS VERY IMPORTANT !!! or else Json serialization goes in infinite loop
 	private User user;
 		

@@ -55,11 +55,32 @@ public class UserDAOImpl implements UserDAO {
 		int userid = user.getId();
 		return session.get(User.class, userid);
 	}
-
+	
 	@Override
 	public Address getAddress(int id) {
 		return sessionFactory.getCurrentSession().get(Address.class, id);
 	}
+
+	@Override
+	public Address getBillingAddress(User user) {
+		String sql = "FROM Address WHERE user = :user and billing = :billing";
+		return sessionFactory.getCurrentSession()
+				.createQuery(sql, Address.class)
+				.setParameter("billing", true)
+				.setParameter("user", user)
+				.getSingleResult();
+	}
+	
+	@Override
+	public List<Address> getShippingAddresses(User user) {
+		String sql = "FROM Address WHERE user = :user and shipping = :shipping";
+		return sessionFactory.getCurrentSession()
+				.createQuery(sql, Address.class)
+				.setParameter("shipping", true)
+				.setParameter("user", user)
+				.getResultList();
+	}
+	
 	@Override
 	public Address addAddress(Address addr) {
 		sessionFactory.getCurrentSession().persist(addr);

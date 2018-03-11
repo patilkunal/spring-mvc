@@ -10,6 +10,7 @@
 
 	<properties>
 		<spring-version>4.3.14.RELEASE</spring-version>
+		<spring-webflow-version>2.5.0.RELEASE</spring-webflow-version>
 		<javax.servlet-version>3.0.1</javax.servlet-version>
 		<jackson-version>2.9.4</jackson-version>
 		<apache-commons-version>3.6</apache-commons-version>
@@ -81,6 +82,11 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${spring-version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.webflow</groupId>
+		    <artifactId>spring-webflow</artifactId>
+		    <version>${spring-webflow-version}</version>
 		</dependency>
 
 		<dependency>

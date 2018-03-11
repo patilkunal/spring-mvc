@@ -2,6 +2,8 @@ package com.inovisionsoftware.exception;
 
 import java.sql.SQLException;
 
+import javax.persistence.PersistenceException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.GenericJDBCException;
@@ -49,8 +51,19 @@ public class GlobalDefaultExceptionHandler {
 		result.setErrorMessage(enfe.getMessage());
 		return result;
 	}
+	
+	@ExceptionHandler(CartNotAllowedException.class)
+	@ResponseStatus(code=HttpStatus.FORBIDDEN)	
+	public @ResponseBody BaseResult<String> handleCartNotAllowed(CartNotAllowedException e) {
+		LOGGER.error("Cart is not allowed: " + e.getMessage());
+		
+		BaseResult<String> result = new BaseResult<String>(null);
+		result.setErrorCode(HttpStatus.FORBIDDEN.value());
+		result.setErrorMessage(e.getMessage());
+		return result;		
+	}
 
-	@ExceptionHandler({GenericJDBCException.class, TransactionException.class, SQLException.class})
+	@ExceptionHandler({GenericJDBCException.class, TransactionException.class, SQLException.class, PersistenceException.class})
 	@ResponseStatus(code=HttpStatus.INTERNAL_SERVER_ERROR)
 	public @ResponseBody BaseResult<String> handleDatabaseException(Exception e) {
 		LOGGER.error("Database Exception: " + e.getMessage(), e);
