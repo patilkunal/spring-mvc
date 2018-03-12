@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+
+	<!--  Start state -->
+	<view-state id="personal3" view="flows/register2/personal3"></view-state>
+	<view-state id="personal2" view="flows/register2/personal2"></view-state>
+	
+	<!-- End State -->
+	<end-state id="homeEnd" view="externalRedirect:contextRelative:/"></end-state>
+	
+	
+	<!-- Global transition -->
+	<global-transitions>
+		<!-- on is the id of this transistion specified in _eventId_home  -->
+		<!-- to is the state id to which we want to transition to (in this case it is end state home specified in end-state) -->
+		<transition on="home" to="homeEnd"></transition>
+	</global-transitions>
+	
+</flow>

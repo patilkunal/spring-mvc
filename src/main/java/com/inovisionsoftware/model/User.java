@@ -1,5 +1,7 @@
 package com.inovisionsoftware.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +15,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 @Table(name="user_detail")
-public class User {
+public class User implements Serializable {
 
+	private static final long serialVersionUID = 7541236346805304587L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;

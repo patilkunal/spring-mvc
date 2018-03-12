@@ -1,11 +1,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:wf="http://www.springframework.org/schema/webflow-config"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/mvc
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/webflow-config
+		http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd
 		">
@@ -22,5 +25,43 @@
 	
 	<!-- map assets folder to a resources virtual folder that Dispatcher Servlet would serve as -->
 	<mvc:resources location="/assets/" mapping="/resources/**"/>
+	
+	<!-- Webflow configuration  -->
+	<!-- Entry point for flow  -->
+	<!-- Uses flow registry below as default, so no need to specify -->
+	<wf:flow-executor id="flowExecutor" />
+	
+	<wf:flow-registry id="flowRegistry" base-path="/WEB-INF/views/flows" flow-builder-services="myFlowBuilderService">
+	<!--
+		when using pattern, the first part '**' is the flow ID , used to reference the flow file.
+		flow ID is the relative path specified after context to invoke the flow (and it's  flow.xml and views)
+		typically every flow ID will have only one *-flow.xml file  
+	 -->
+		<wf:flow-location-pattern value="/**/*-flow.xml"/>
+	</wf:flow-registry>
+	
+	<wf:flow-builder-services id="myFlowBuilderService" view-factory-creator="myViewFactoryCreator"/>
+	
+	<!-- Flow handler adapter is bridge between dispatcher servlet and flow executor -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor"/>
+	</bean>
+	
+	<!--
+		Flow handler mapping helps dispatcher servlet to send flow requests to flow handler adapter 
+	 -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="flowRegistry" ref="flowRegistry"/>
+		<!-- gives higest preference to flow handler mapping over MVC handler mapping -->
+		<property name="order" value="-1"/>
+	</bean>
+	
+	<bean id="myViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<property name="viewResolvers">
+			<list>
+				<ref bean="viewResolver"/>
+			</list>
+		</property>
+	</bean>
 	
 </beans>

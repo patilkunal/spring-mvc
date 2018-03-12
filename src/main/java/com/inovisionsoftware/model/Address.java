@@ -1,5 +1,7 @@
 package com.inovisionsoftware.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Address {
+public class Address implements Serializable {
+
+	private static final long serialVersionUID = 1488029174600887570L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
