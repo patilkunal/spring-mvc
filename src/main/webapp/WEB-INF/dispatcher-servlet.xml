@@ -40,7 +40,8 @@
 		<wf:flow-location-pattern value="/**/*-flow.xml"/>
 	</wf:flow-registry>
 	
-	<wf:flow-builder-services id="myFlowBuilderService" view-factory-creator="myViewFactoryCreator"/>
+	<!-- Validator is defined below -->
+	<wf:flow-builder-services id="myFlowBuilderService" view-factory-creator="myViewFactoryCreator" validator="validator"/>
 	
 	<!-- Flow handler adapter is bridge between dispatcher servlet and flow executor -->
 	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
@@ -64,4 +65,7 @@
 		</property>
 	</bean>
 	
+	<!-- Validator that is referenced above in flow-builder-service -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+	</bean>
 </beans>

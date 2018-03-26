@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -22,15 +24,28 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name="first_name")
+	@NotBlank(message="First name is required")
 	private String firstName;
+	
 	@Column(name="last_name")
+	@NotBlank(message="Last name is required")
 	private String lastName;	
+	
+	@NotBlank(message="Email is required")
 	private String email;
+	
 	@Column(name="contact_number")
 	private String contactNumber;
 	private String role;
+	
+	@NotBlank(message="Password is required")
 	private String password;
+	
+	@Transient
+	//@NotBlank(message="Password is required")
+	private String confirmPassword;
 	private boolean enabled=true;
 
 	//** BIDRECTIONAL MAPPING EXPLAINED **
@@ -93,6 +108,12 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -104,5 +125,27 @@ public class User implements Serializable {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
 	
 }

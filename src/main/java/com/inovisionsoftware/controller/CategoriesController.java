@@ -2,6 +2,8 @@ package com.inovisionsoftware.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,8 @@ import com.inovisionsoftware.model.Category;
 @RequestMapping("/category")
 public class CategoriesController {
 
+	private static final Logger LOGGER = LogManager.getLogger(CategoriesController.class);
+	
 	@Autowired
 	private CategoryDAO categoryDAO;
 	
@@ -27,13 +31,15 @@ public class CategoriesController {
 	
 	// test using curl -H "Accept: application/json" http://localhost:8080/spring-mvc/category
 	@RequestMapping(method=RequestMethod.GET)
-	public @ResponseBody List<Category> getCategories() {		
+	public @ResponseBody List<Category> getCategories() {
+		LOGGER.info("getCategories called");
 		return categoryDAO.getCategories();
 	}
 	
 	//test using $ curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" -d '{"name": "Category2"}' 'http://localhost:8080/spring-mvc/category'
 	@RequestMapping(method=RequestMethod.POST)
 	public @ResponseBody Category saveCategory(@RequestBody Category cat) {
+		LOGGER.info("Saving category: " + cat);
 		return categoryDAO.saveCategory(cat);
 	}
 

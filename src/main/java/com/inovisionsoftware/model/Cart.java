@@ -1,5 +1,7 @@
 package com.inovisionsoftware.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +17,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="cart")
-public class Cart {
+public class Cart implements Serializable {
+
+	private static final long serialVersionUID = 8023726184161496985L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -61,4 +65,29 @@ public class Cart {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;		
+		if (this == obj)
+			return true;
+		if (getClass() != obj.getClass())
+			return false;
+		Cart other = (Cart) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
+	
+	
 }
