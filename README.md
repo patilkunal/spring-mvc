@@ -17,7 +17,8 @@ Context Section (or context xml file) would look like this
       </Context>
 ```
 
-```
+If you are using Tomcat from Eclipse, make sure to edit server.xml to following after you have run the app at least once and found that it has no DB connectivity
+```xml
       <Context docBase="spring-mvc" path="/spring-mvc" reloadable="true" source="org.eclipse.jst.j2ee.server:spring-mvc">
 		<ResourceLink global="test-h2ds" name="jdbc/H2DS" type="javax.sql.DataSource"/>      	
       </Context>
