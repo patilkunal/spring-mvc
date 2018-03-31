@@ -54,6 +54,10 @@
     <c:if test="${userClickContact == true}">
     <jsp:include page="contact.jsp"/>
     </c:if>
+
+    <c:if test="${userClickManageProducts == true}">
+    <jsp:include page="manageProducts.jsp"/>
+    </c:if>
     
     <!-- Footer -->
 	<jsp:include page="shared/footer.jsp"/>

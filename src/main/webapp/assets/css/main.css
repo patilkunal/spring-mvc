@@ -7,3 +7,7 @@ body {
     padding-top: 56px;
   }
 }
+
+.help-block {
+	color: red;
+}

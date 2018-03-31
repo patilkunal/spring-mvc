@@ -17,6 +17,12 @@ Context Section (or context xml file) would look like this
       </Context>
 ```
 
+```
+      <Context docBase="spring-mvc" path="/spring-mvc" reloadable="true" source="org.eclipse.jst.j2ee.server:spring-mvc">
+		<ResourceLink global="test-h2ds" name="jdbc/H2DS" type="javax.sql.DataSource"/>      	
+      </Context>
+
+```
 ## Running the application
 * Start H2 database by running h2w.bat from the bin folder 
 * Configure jdbc url as per configuration (one shown is out of box)
@@ -65,6 +71,12 @@ cart_lines int,
 constraint fk_cart_user_id foreign key (user_id) references user_detail(id)
 );
 
+create table product (
+id int IDENTITY PRIMARY KEY,
+name varchar(100),
+quantity int,
+categoryId int
+);
 
 ```
 
